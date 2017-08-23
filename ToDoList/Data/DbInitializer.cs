@@ -18,9 +18,9 @@ namespace TodoApi.Data
 
             var listItems = new TodoItem[]
             {
-            new TodoItem{Name="Keith",IsComplete=true},
-            new TodoItem{Name="Rodgers",IsComplete=false},
-            new TodoItem{Name="Alexis",IsComplete=true},
+            new TodoItem{Name="Keith",IsComplete=true,EnrollmentDate=DateTime.Today},
+            new TodoItem{Name="Rodgers",IsComplete=false,EnrollmentDate=DateTime.Today},
+            new TodoItem{Name="Alexis",IsComplete=true,EnrollmentDate=DateTime.Today},
             };
             foreach (TodoItem ti in listItems)
             {

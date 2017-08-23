@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using TodoApi.Models;
 using System.Linq;
+using System.IO;
+using System;
 
 namespace TodoApi.Controllers
 {
@@ -27,7 +29,7 @@ namespace TodoApi.Controllers
             return _context.TodoItems.ToList();
         }
 
-        [HttpGet("{id}", Name = "GetTodo")]
+        [HttpGet("{id}")]
         public IActionResult GetById(long id)
         {
             var item = _context.TodoItems.FirstOrDefault(t => t.Id == id);
@@ -35,6 +37,10 @@ namespace TodoApi.Controllers
             {
                 return NotFound();
             }
+
+            Console.WriteLine(Directory.GetParent(
+                Directory.GetCurrentDirectory()));
+
             return new ObjectResult(item);
         }
 
@@ -68,6 +74,7 @@ namespace TodoApi.Controllers
 
             todo.IsComplete = item.IsComplete;
             todo.Name = item.Name;
+            todo.EnrollmentDate = item.EnrollmentDate;
 
             _context.TodoItems.Update(todo);
             _context.SaveChanges();
