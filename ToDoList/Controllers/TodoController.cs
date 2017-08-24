@@ -4,6 +4,7 @@ using TodoApi.Models;
 using System.Linq;
 using System.IO;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace TodoApi.Controllers
 {
@@ -26,7 +27,17 @@ namespace TodoApi.Controllers
         [HttpGet]
         public IEnumerable<TodoItem> GetAll()
         {
-            return _context.TodoItems.ToList();
+            var todoName = _context.TodoItems.Where(t => t.Worker.Age == 34);
+            foreach(TodoItem t in todoName)
+            {
+                System.Diagnostics.Debug.WriteLine("34 year old worker is named" + t.Name);
+            }
+
+            var todoItemsWithNavigationProperties = _context.TodoItems
+                      .Include(t => t.Worker)
+                      .ToList();
+
+            return todoItemsWithNavigationProperties;
         }
 
         [HttpGet("{id}")]
@@ -75,6 +86,8 @@ namespace TodoApi.Controllers
             todo.IsComplete = item.IsComplete;
             todo.Name = item.Name;
             todo.EnrollmentDate = item.EnrollmentDate;
+            todo.DueDate = item.DueDate;
+            todo.WorkerId = item.WorkerId;
 
             _context.TodoItems.Update(todo);
             _context.SaveChanges();

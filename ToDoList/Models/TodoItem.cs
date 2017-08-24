@@ -11,8 +11,10 @@ namespace TodoApi.Models
         public long Id { get; set; }
         public string Name { get; set; }
         public bool IsComplete { get; set; }
-
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
         public DateTime EnrollmentDate { get; set; }
+        public DateTime DueDate { get; set; }
+        public long WorkerId { get; set; }
+
+        public Worker Worker { get; set; }
     }
 }
